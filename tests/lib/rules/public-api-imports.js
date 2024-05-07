@@ -1,8 +1,10 @@
+const { getIndexApiMessage } = require('../../../lib/helpers');
+
 /**
  * @fileoverview check if absolute paths were imported from deep directories
  * @author Alex
  */
-'use strict';
+('use strict');
 
 //------------------------------------------------------------------------------
 // Requirements
@@ -54,13 +56,13 @@ ruleTester.run('public-api-imports', rule, {
   invalid: [
     {
       code: "import { ArticleCodeBlock } from '@/entities/article/ui/ArticleCodeBlock/ArticleCodeBlock'",
-      errors: [{ message: 'Absolute paths are allowed only from public api (index.ts)' }],
+      errors: [{ message: getIndexApiMessage(2) }],
       options: aliasOptions,
     },
     {
       filename: 'D:\\vs\\react\\middle-project\\src\\entities\\file.stories.tsx',
       code: "import { ArticleCodeBlock } from 'entities/article/testing/file.tsx'",
-      errors: [{ message: 'Absolute paths are allowed only from public api (index.ts)' }],
+      errors: [{ message: getIndexApiMessage(2) }],
       options: [{ ...aliasOptions, testFilesPatterns: ['**/*.stories.tsx'] }],
     },
     {
